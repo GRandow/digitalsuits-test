@@ -8,6 +8,10 @@
 
 {{ 'section-promo-banner.css' | asset_url | stylesheet_tag }}
 
+{%- if section.settings.button_mode == 'add_to_cart' -%}
+  <script src="{{ 'promo-banner.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
+
 {%- liquid
   assign featured_product = section.settings.product
   assign heading_font = section.settings.heading_font
@@ -119,6 +123,50 @@
               </a>
             </div>
           {%- endif -%}
+
+        {%- when 'add_to_cart' -%}
+          {%- liquid
+            assign variant = featured_product.selected_or_first_available_variant
+            if button_label == blank
+              assign button_label = 'sections.promo_banner.add_to_cart' | t
+            endif
+          -%}
+          <div class="promo-banner__action">
+            {%- if featured_product != blank -%}
+              <promo-banner-cart-form
+                data-error-message="{{ 'sections.promo_banner.error' | t | escape }}"
+                data-loading-message="{{ 'sections.promo_banner.loading' | t | escape }}"
+              >
+                {%- form 'product', featured_product, class: 'promo-banner__form', novalidate: 'novalidate' -%}
+                  <input type="hidden" name="id" value="{{ variant.id }}">
+                  <input type="hidden" name="quantity" value="1">
+                  <button
+                    type="submit"
+                    name="add"
+                    class="{{ button_classes }}"
+                    {% unless variant.available %}
+                      disabled
+                    {% endunless %}
+                  >
+                    <span class="promo-banner__button-label">
+                      {%- if variant.available -%}
+                        {{- button_label | escape -}}
+                      {%- else -%}
+                        {{- 'sections.promo_banner.sold_out' | t -}}
+                      {%- endif -%}
+                    </span>
+                    <span class="promo-banner__spinner" aria-hidden="true"></span>
+                  </button>
+                  <span class="promo-banner__visually-hidden" role="status" data-promo-banner-status></span>
+                  <p class="promo-banner__error" role="alert" data-promo-banner-error></p>
+                {%- endform -%}
+              </promo-banner-cart-form>
+            {%- else -%}
+              <button type="button" class="{{ button_classes }}" disabled>
+                {{- 'sections.promo_banner.unavailable' | t -}}
+              </button>
+            {%- endif -%}
+          </div>
       {%- endcase -%}
     </div>
   </div>
@@ -233,7 +281,7 @@
       "type": "product",
       "id": "product",
       "label": "Product",
-      "info": "Its featured image is shown in the card. Leave empty for a text-only card."
+      "info": "Shown in the card and used by the \"Add product to cart\" button. Leave empty for a text-only card."
     },
     {
       "type": "checkbox",
@@ -308,14 +356,21 @@
       "label": "Button behavior",
       "options": [
         { "value": "none", "label": "Hidden" },
-        { "value": "link", "label": "Link to a page" }
+        { "value": "link", "label": "Link to a page" },
+        { "value": "add_to_cart", "label": "Add product to cart" }
       ],
       "default": "link"
+    },
+    {
+      "type": "paragraph",
+      "content": "\"Add product to cart\" uses the product selected in the Card settings and adds its first available variant.",
+      "visible_if": "{{ section.settings.button_mode == 'add_to_cart' }}"
     },
     {
       "type": "text",
       "id": "button_label",
       "label": "Button label",
+      "info": "When adding to cart, an empty label shows \"Add to cart\".",
       "default": "Shop Men",
       "visible_if": "{{ section.settings.button_mode != 'none' }}"
     },

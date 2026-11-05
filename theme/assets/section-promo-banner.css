@@ -215,9 +215,72 @@
 }
 
 .promo-banner__button:disabled,
-.promo-banner__button[aria-disabled='true'] {
+.promo-banner__button[aria-disabled='true']:not(.is-loading) {
   cursor: not-allowed;
   opacity: 0.5;
+}
+
+/* Add to cart: loading state keeps the label in the accessibility tree */
+
+.promo-banner__button.is-loading {
+  cursor: progress;
+}
+
+.promo-banner__button.is-loading .promo-banner__button-label {
+  opacity: 0;
+}
+
+.promo-banner__spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: none;
+  width: 1em;
+  height: 1em;
+  margin: -0.5em 0 0 -0.5em;
+  border: 2px solid var(--promo-banner-button-foreground);
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: promo-banner-spin 0.7s linear infinite;
+}
+
+.promo-banner__button.is-loading .promo-banner__spinner {
+  display: block;
+}
+
+@keyframes promo-banner-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .promo-banner__spinner {
+    animation-duration: 2s;
+  }
+}
+
+.promo-banner__error {
+  margin: 12px 0 0;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--promo-banner-accent-color);
+}
+
+.promo-banner__error:empty {
+  display: none;
+}
+
+.promo-banner__visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* Mobile: the card takes the full width and its height follows its content */
