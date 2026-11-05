@@ -1,0 +1,14 @@
+# This file stores configurations for your Shopify app.
+# It must exist at the root of your app.
+#
+# client_id is filled in by `shopify app config link` (or the first
+# `shopify app dev`), which creates/links the app in your Partner organization.
+
+client_id = ""
+name = "DigitalSuits Checkout Upsell"
+
+[access_scopes]
+# Extension-only app: the checkout UI extension reads products through the
+# Storefront API with the default unauthenticated scopes granted by api_access.
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = ""
