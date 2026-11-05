@@ -1,0 +1,12 @@
+{
+  "name": "checkout-upsell",
+  "private": true,
+  "version": "1.0.0",
+  "license": "UNLICENSED",
+  "type": "module",
+  "dependencies": {
+    "@preact/signals": "^2.11.4",
+    "@shopify/ui-extensions": "2026.10.x",
+    "preact": "^10.29.8"
+  }
+}

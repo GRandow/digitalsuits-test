@@ -1,0 +1,44 @@
+# Learn more about configuring your checkout UI extension:
+# https://shopify.dev/docs/api/checkout-ui-extensions/latest/configuration
+
+# The version of APIs your extension will receive. Learn more:
+# https://shopify.dev/docs/api/usage/versioning
+api_version = "2026-10"
+
+[[extensions]]
+name = "Checkout upsell"
+handle = "checkout-upsell"
+type = "ui_extension"
+uid = "a0935baa-9807-05af-4a8d-c6d4fb7602a5880e7660"
+
+# A block target, so the merchant decides where the upsell is placed in the
+# checkout editor. Learn more:
+# https://shopify.dev/docs/api/checkout-ui-extensions/latest/targets
+
+[[extensions.targeting]]
+module = "./src/Checkout.tsx"
+target = "purchase.checkout.block.render"
+
+[extensions.capabilities]
+# Lets the extension query the Storefront API to read the collection products.
+# https://shopify.dev/docs/apps/build/checkout/capabilities#storefront-api-access
+api_access = true
+
+# Settings shown to the merchant in the checkout editor.
+# Checkout UI extension settings don't support a collection picker
+# (`collection_reference` isn't an allowed type), so the collection is
+# referenced by its handle or ID.
+# https://shopify.dev/docs/api/checkout-ui-extensions/latest#configuration
+
+[extensions.settings]
+[[extensions.settings.fields]]
+key = "upsell_collection"
+type = "single_line_text_field"
+name = "Upsell collection"
+description = "Handle of the collection to recommend products from (for example: upsell). A collection ID or URL also works. Products follow the collection's sort order."
+
+[[extensions.settings.fields]]
+key = "heading"
+type = "single_line_text_field"
+name = "Heading"
+description = "Optional. Leave empty to use \"You may also like\"."
