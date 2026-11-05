@@ -41,6 +41,8 @@
     --promo-banner-body-font: {{ body_font.family }}, {{ body_font.fallback_families }};
     --promo-banner-body-weight: {{ body_font.weight }};
     --promo-banner-body-style: {{ body_font.style }};
+    --promo-banner-accent-color: {{ section.settings.button_color }};
+    --promo-banner-button-text-color: {{ section.settings.button_text_color }};
   }
 {%- endstyle -%}
 
@@ -95,6 +97,29 @@
       {%- if section.settings.text != blank -%}
         <div class="promo-banner__text">{{ section.settings.text }}</div>
       {%- endif -%}
+
+      {%- liquid
+        assign button_label = section.settings.button_label
+        assign button_classes = 'promo-banner__button promo-banner__button--' | append: section.settings.button_style
+      -%}
+
+      {%- case section.settings.button_mode -%}
+        {%- when 'link' -%}
+          {%- if button_label != blank -%}
+            <div class="promo-banner__action">
+              <a
+                {% if section.settings.button_link != blank %}
+                  href="{{ section.settings.button_link }}"
+                {% else %}
+                  role="link" aria-disabled="true"
+                {% endif %}
+                class="{{ button_classes }}"
+              >
+                {{- button_label | escape -}}
+              </a>
+            </div>
+          {%- endif -%}
+      {%- endcase -%}
     </div>
   </div>
 </section>
@@ -272,6 +297,59 @@
       "id": "body_font",
       "label": "Body font",
       "default": "arial_n4"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "select",
+      "id": "button_mode",
+      "label": "Button behavior",
+      "options": [
+        { "value": "none", "label": "Hidden" },
+        { "value": "link", "label": "Link to a page" }
+      ],
+      "default": "link"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Shop Men",
+      "visible_if": "{{ section.settings.button_mode != 'none' }}"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link",
+      "default": "/collections/all",
+      "visible_if": "{{ section.settings.button_mode == 'link' }}"
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "Button style",
+      "options": [
+        { "value": "link", "label": "Underlined link" },
+        { "value": "solid", "label": "Solid button" }
+      ],
+      "default": "link",
+      "visible_if": "{{ section.settings.button_mode != 'none' }}"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Button color",
+      "default": "#841719",
+      "visible_if": "{{ section.settings.button_mode != 'none' }}"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#FFFFFF",
+      "visible_if": "{{ section.settings.button_mode != 'none' and section.settings.button_style == 'solid' }}"
     }
   ],
   "presets": [

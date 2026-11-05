@@ -156,6 +156,70 @@
   text-underline-offset: 0.2em;
 }
 
+/* Button: "link" reproduces the underlined Figma link, "solid" is a filled button */
+
+.promo-banner__action {
+  margin-top: clamp(24px, 3vw, 40px);
+}
+
+.promo-banner__button {
+  --promo-banner-button-foreground: var(--promo-banner-accent-color);
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  font: inherit;
+  font-size: var(--promo-banner-body-size);
+  line-height: 1.2;
+  letter-spacing: 0;
+  color: var(--promo-banner-button-foreground);
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: opacity 0.2s ease, text-decoration-thickness 0.2s ease;
+}
+
+.promo-banner__button--link {
+  padding: 4px 0;
+  border: 0;
+  background: none;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+}
+
+.promo-banner__button--link:hover {
+  text-decoration-thickness: 2px;
+}
+
+.promo-banner__button--solid {
+  --promo-banner-button-foreground: var(--promo-banner-button-text-color);
+
+  min-height: 48px;
+  padding: 12px 32px;
+  border: 1px solid var(--promo-banner-accent-color);
+  background-color: var(--promo-banner-accent-color);
+  text-decoration: none;
+}
+
+.promo-banner__button--solid:hover {
+  opacity: 0.85;
+}
+
+.promo-banner__button:focus-visible {
+  outline: 2px solid var(--promo-banner-accent-color);
+  outline-offset: 4px;
+  box-shadow: none;
+}
+
+.promo-banner__button:disabled,
+.promo-banner__button[aria-disabled='true'] {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
 /* Mobile: the card takes the full width and its height follows its content */
 
 @media screen and (max-width: 749px) {
