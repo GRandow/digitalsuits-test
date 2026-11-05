@@ -11,6 +11,9 @@ export const COLLECTION_PRODUCTS_LIMIT = 50;
  *
  * `selectedOrFirstAvailableVariant` (without selected options) is the first
  * variant that can be purchased, which is the one added to the cart.
+ *
+ * Products that can only be sold with a subscription (`requiresSellingPlan`)
+ * are excluded because the Add button adds a one-time purchase.
  */
 export const COLLECTION_PRODUCTS_QUERY = `#graphql
   query UpsellCollectionProducts($id: ID, $handle: String, $first: Int!) {
@@ -21,6 +24,7 @@ export const COLLECTION_PRODUCTS_QUERY = `#graphql
           id
           title
           availableForSale
+          requiresSellingPlan
           featuredImage {
             url(transform: { maxWidth: 200, maxHeight: 200 })
             altText
@@ -48,6 +52,7 @@ interface StorefrontProduct {
   id: string;
   title: string;
   availableForSale: boolean;
+  requiresSellingPlan: boolean;
   featuredImage: { url: string; altText: string | null } | null;
   selectedOrFirstAvailableVariant: {
     id: string;
@@ -79,7 +84,7 @@ export function toUpsellProducts(data: CollectionProductsQueryData | null | unde
 
   return products.flatMap((product) => {
     const variant = product.selectedOrFirstAvailableVariant;
-    if (!product.availableForSale || !variant?.availableForSale) return [];
+    if (!product.availableForSale || product.requiresSellingPlan || !variant?.availableForSale) return [];
 
     return [
       {

@@ -9,6 +9,7 @@ function storefrontProduct(id: string, overrides: Partial<StorefrontProduct> = {
     id: `gid://shopify/Product/${id}`,
     title: `Product ${id}`,
     availableForSale: true,
+    requiresSellingPlan: false,
     featuredImage: { url: `https://cdn.example/${id}.jpg`, altText: `Image ${id}` },
     selectedOrFirstAvailableVariant: {
       id: `gid://shopify/ProductVariant/${id}1`,
@@ -37,10 +38,11 @@ describe('toUpsellProducts', () => {
     });
   });
 
-  it('drops sold-out products and products without an available variant', () => {
+  it('drops sold-out products, subscription-only products and products without an available variant', () => {
     const products = toUpsellProducts(
       queryData([
         storefrontProduct('1', { availableForSale: false }),
+        storefrontProduct('5', { requiresSellingPlan: true }),
         storefrontProduct('2', { selectedOrFirstAvailableVariant: null }),
         storefrontProduct('3', {
           selectedOrFirstAvailableVariant: {
