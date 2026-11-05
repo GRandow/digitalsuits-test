@@ -1,0 +1,178 @@
+/*
+ * Promo banner
+ * Values that come from the theme editor are exposed as custom properties on
+ * #PromoBanner-{section.id}, so every instance of the section is styled
+ * independently and this file stays static and cacheable.
+ */
+
+.promo-banner {
+  --promo-banner-gutter: clamp(16px, 3vw, 48px);
+  --promo-banner-card-padding-block: clamp(32px, 5vw, 72px);
+  --promo-banner-card-padding-inline: clamp(24px, 4vw, 56px);
+  --promo-banner-heading-size: 44px;
+  --promo-banner-body-size: 20px;
+
+  position: relative;
+  display: grid;
+  overflow: hidden;
+  isolation: isolate;
+  background-color: var(--promo-banner-background);
+}
+
+/* Background image */
+
+.promo-banner__media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.promo-banner__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Card positioning: a single grid cell, the card is aligned inside it */
+
+.promo-banner__inner {
+  display: grid;
+  min-height: var(--promo-banner-min-height);
+  padding: var(--promo-banner-gutter);
+}
+
+.promo-banner--x-left .promo-banner__card {
+  justify-self: start;
+}
+
+.promo-banner--x-center .promo-banner__card {
+  justify-self: center;
+}
+
+.promo-banner--x-right .promo-banner__card {
+  justify-self: end;
+}
+
+.promo-banner--y-top .promo-banner__card {
+  align-self: start;
+}
+
+.promo-banner--y-middle .promo-banner__card {
+  align-self: center;
+}
+
+.promo-banner--y-bottom .promo-banner__card {
+  align-self: end;
+}
+
+/* Card */
+
+.promo-banner__card {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: var(--promo-banner-card-width);
+  min-height: calc(
+    (var(--promo-banner-min-height) - 2 * var(--promo-banner-gutter)) * var(--promo-banner-card-height)
+  );
+  padding: var(--promo-banner-card-padding-block) var(--promo-banner-card-padding-inline);
+  background-color: var(--promo-banner-card-background);
+  color: var(--promo-banner-text-color);
+  font-family: var(--promo-banner-body-font);
+  font-weight: var(--promo-banner-body-weight);
+  font-style: var(--promo-banner-body-style);
+  letter-spacing: 0;
+  text-align: center;
+}
+
+.promo-banner__card--left {
+  align-items: flex-start;
+  text-align: left;
+}
+
+.promo-banner__card--right {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.promo-banner__product-media {
+  width: min(50%, 320px);
+  margin-bottom: clamp(24px, 4vw, 64px);
+}
+
+.promo-banner__product-image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.promo-banner__product-media--blend .promo-banner__product-image {
+  mix-blend-mode: multiply;
+}
+
+/* Typography */
+
+.promo-banner__heading {
+  margin: 0;
+  font-family: var(--promo-banner-heading-font);
+  font-weight: var(--promo-banner-heading-weight);
+  font-style: var(--promo-banner-heading-style);
+  font-size: var(--promo-banner-heading-size);
+  line-height: 1.1;
+  letter-spacing: 0;
+  color: var(--promo-banner-heading-color);
+  word-break: break-word;
+}
+
+.promo-banner__heading--small {
+  --promo-banner-heading-size: 32px;
+}
+
+.promo-banner__heading--large {
+  --promo-banner-heading-size: 56px;
+}
+
+.promo-banner__text {
+  max-width: 52ch;
+  margin-top: clamp(16px, 2.5vw, 32px);
+  font-size: var(--promo-banner-body-size);
+  line-height: 1.25;
+}
+
+.promo-banner__text > * {
+  margin: 0;
+}
+
+.promo-banner__text > * + * {
+  margin-top: 0.75em;
+}
+
+.promo-banner__text a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+/* Mobile: the card takes the full width and its height follows its content */
+
+@media screen and (max-width: 749px) {
+  .promo-banner {
+    --promo-banner-body-size: 16px;
+  }
+
+  .promo-banner__heading {
+    font-size: calc(var(--promo-banner-heading-size) * 0.75);
+  }
+
+  .promo-banner__inner {
+    min-height: calc(var(--promo-banner-min-height) * 0.75);
+  }
+
+  .promo-banner__card {
+    width: 100%;
+    min-height: 0;
+  }
+}
