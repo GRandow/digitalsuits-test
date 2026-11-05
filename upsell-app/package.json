@@ -16,12 +16,25 @@
     "dev": "shopify app dev",
     "info": "shopify app info",
     "generate": "shopify app generate",
-    "deploy": "shopify app deploy"
+    "deploy": "shopify app deploy",
+    "lint": "eslint .",
+    "typecheck": "tsc -p extensions/checkout-upsell",
+    "test": "vitest run",
+    "check": "npm run lint && npm run typecheck && npm run test"
   },
   "dependencies": {
     "@shopify/cli": "^5.0.1"
   },
   "trustedDependencies": [
     "@shopify/plugin-cloudflare"
-  ]
+  ],
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.14.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "globals": "^17.14.0",
+    "typescript": "~6.0.3",
+    "typescript-eslint": "^8.72.1",
+    "vitest": "^5.1.0"
+  }
 }
