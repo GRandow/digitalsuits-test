@@ -57,6 +57,9 @@ if (!customElements.get('promo-banner-cart-form')) {
         formData.append('sections_url', window.location.pathname);
         if (typeof cart.setActiveElement === 'function') cart.setActiveElement(document.activeElement);
 
+        const variantId = formData.get('id');
+        const linesUpdate = this.dispatchCartLinesUpdate(variantId, Number(formData.get('quantity')) || 1);
+
         try {
           const response = await fetch(`${this.form.getAttribute('action')}.js`, {
             method: 'POST',
@@ -66,19 +69,23 @@ if (!customElements.get('promo-banner-cart-form')) {
           const data = await response.json();
 
           if (!response.ok) {
-            this.setError(data.description || data.message);
+            const message = data.description || data.message;
+            this.setError(message);
             this.notifyTheme('cartError', {
               source: 'promo-banner',
-              productVariantId: formData.get('id'),
+              productVariantId: variantId,
               errors: data.errors || data.description,
               message: data.message,
             });
+            this.dispatchCartError(message);
+            linesUpdate?.reject(new Error(message));
             return;
           }
 
+          this.resolveCartLinesUpdate(linesUpdate);
           this.notifyTheme('cartUpdate', {
             source: 'promo-banner',
-            productVariantId: formData.get('id'),
+            productVariantId: variantId,
             cartData: data,
           });
           cart.classList.remove('is-empty');
@@ -86,6 +93,7 @@ if (!customElements.get('promo-banner-cart-form')) {
         } catch (error) {
           console.error(error);
           this.setError();
+          linesUpdate?.reject(error);
         } finally {
           this.setLoading(false);
         }
@@ -109,6 +117,48 @@ if (!customElements.get('promo-banner-cart-form')) {
       setError(message = this.dataset.errorMessage) {
         if (!this.errorElement) return;
         this.errorElement.textContent = message || '';
+      }
+
+      /*
+       * Shopify standard storefront events, dispatched the same way as Dawn's product form
+       * (assets/product-form.js) so apps and analytics listening to them also see this add to cart.
+       */
+      dispatchCartLinesUpdate(variantId, quantity) {
+        const { CartLinesUpdateEvent } = window.StandardEvents || {};
+        if (!CartLinesUpdateEvent) return null;
+
+        const deferred = CartLinesUpdateEvent.createPromise();
+        this.dispatchEvent(
+          new CartLinesUpdateEvent({
+            action: 'add',
+            context: 'product',
+            lines: [{ merchandiseId: variantId, quantity }],
+            promise: deferred.promise,
+          })
+        );
+        return deferred;
+      }
+
+      resolveCartLinesUpdate(deferred) {
+        const { CartLinesUpdateEvent } = window.StandardEvents || {};
+        if (!deferred || !CartLinesUpdateEvent) return;
+
+        const cartData =
+          typeof CartItems !== 'undefined' && typeof CartItems.fetchCartData === 'function'
+            ? CartItems.fetchCartData()
+            : fetch(`${window.routes?.cart_url ?? '/cart'}.json`).then((response) => response.json());
+
+        cartData
+          .then((cartJson) => {
+            if (!cartJson?.currency) throw new Error('Missing currency in cart response');
+            deferred.resolve({ cart: CartLinesUpdateEvent.createCartFromAjaxResponse(cartJson) });
+          })
+          .catch((error) => deferred.reject(error));
+      }
+
+      dispatchCartError(message) {
+        const { CartErrorEvent } = window.StandardEvents || {};
+        if (CartErrorEvent) this.dispatchEvent(new CartErrorEvent({ error: message, code: 'INVALID' }));
       }
 
       /** Keeps Dawn's other cart components in sync through its pub/sub helpers, when available. */
