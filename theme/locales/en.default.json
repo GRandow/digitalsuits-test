@@ -267,13 +267,6 @@
     }
   },
   "sections": {
-    "promo_banner": {
-      "add_to_cart": "Add to cart",
-      "sold_out": "Sold out",
-      "unavailable": "Unavailable",
-      "loading": "Adding to cart",
-      "error": "This product couldn't be added to your cart. Please try again."
-    },
     "announcements": {
       "previous_announcement": "Previous announcement",
       "next_announcement": "Next announcement",
