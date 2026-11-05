@@ -41,6 +41,7 @@
     --promo-banner-card-background: {{ section.settings.card_background }};
     --promo-banner-heading-color: {{ section.settings.heading_color }};
     --promo-banner-text-color: {{ section.settings.text_color }};
+    --promo-banner-text-size: {{ section.settings.text_size }}px;
     --promo-banner-heading-font: {{ heading_font.family }}, {{ heading_font.fallback_families }};
     --promo-banner-heading-weight: {{ heading_font.weight }};
     --promo-banner-heading-style: {{ heading_font.style }};
@@ -346,6 +347,17 @@
       "id": "text",
       "label": "Text",
       "default": "<p>The quest for the perfect sneaker ends right here, with the Capri. It's your day-to-night go to. Keep them box-fresh or let them get scuffed up—you'll love them either way.</p>"
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "label": "Text and button size",
+      "info": "Scaled down on mobile.",
+      "min": 14,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 20
     },
     {
       "type": "select",

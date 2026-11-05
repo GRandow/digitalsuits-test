@@ -10,7 +10,7 @@
   --promo-banner-card-padding-block: clamp(32px, 5vw, 72px);
   --promo-banner-card-padding-inline: clamp(24px, 4vw, 56px);
   --promo-banner-heading-size: 44px;
-  --promo-banner-body-size: 20px;
+  --promo-banner-body-size: var(--promo-banner-text-size, 20px);
 
   position: relative;
   display: grid;
@@ -291,7 +291,7 @@
 
 @media screen and (max-width: 749px) {
   .promo-banner {
-    --promo-banner-body-size: 16px;
+    --promo-banner-body-size: calc(var(--promo-banner-text-size, 20px) * 0.8);
     --promo-banner-card-padding-block: 40px;
     --promo-banner-card-padding-inline: 24px;
   }
