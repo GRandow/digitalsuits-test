@@ -1,5 +1,8 @@
 {
   "heading": "You may also like",
+  "add": "Add",
+  "addProduct": "Add {{product}} to your order",
+  "addError": "This product couldn't be added to your order. Please try again.",
   "editor": {
     "missingCollection": "Add the handle of the collection to recommend from in this block's settings.",
     "collectionNotFound": "Couldn't load the collection \"{{collection}}\". Check the handle and that the collection is available on the Online Store."

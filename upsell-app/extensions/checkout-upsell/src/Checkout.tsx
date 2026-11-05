@@ -4,6 +4,7 @@ import { useMemo } from 'preact/hooks';
 import {
   useCartLines,
   useExtensionEditor,
+  useInstructions,
   useSettings,
   useTranslate,
 } from '@shopify/ui-extensions/checkout/preact';
@@ -24,6 +25,7 @@ export default async () => {
 function Extension() {
   const settings = useSettings<UpsellSettings>();
   const cartLines = useCartLines();
+  const instructions = useInstructions();
   const editor = useExtensionEditor();
   const translate = useTranslate();
 
@@ -46,6 +48,9 @@ function Extension() {
       <s-banner tone="warning">{translate('editor.collectionNotFound', { collection: collectionSetting })}</s-banner>
     ) : null;
   }
+
+  // Some checkouts (e.g. draft orders) don't allow adding lines, so there is nothing to offer.
+  if (!instructions.lines.canAddCartLine) return null;
 
   if (status === 'loading') return <UpsellSkeleton />;
 
