@@ -5,6 +5,7 @@
   "addError": "This product couldn't be added to your order. Please try again.",
   "editor": {
     "missingCollection": "Add the handle of the collection to recommend from in this block's settings.",
-    "collectionNotFound": "Couldn't load the collection \"{{collection}}\". Check the handle and that the collection is available on the Online Store."
+    "collectionNotFound": "Couldn't load the collection \"{{collection}}\". Check the handle and that the collection is available on the Online Store.",
+    "nothingToShow": "Nothing to recommend right now: every product of the collection is already in the cart or can't be purchased. Buyers won't see this block."
   }
 }

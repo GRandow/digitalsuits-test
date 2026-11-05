@@ -55,7 +55,9 @@ function Extension() {
   if (status === 'loading') return <UpsellSkeleton />;
 
   // Every product of the collection is already in the cart (or none can be bought).
-  if (upsellProducts.length === 0) return null;
+  if (upsellProducts.length === 0) {
+    return editor ? <s-banner tone="info">{translate('editor.nothingToShow')}</s-banner> : null;
+  }
 
   return (
     <s-stack gap="base">

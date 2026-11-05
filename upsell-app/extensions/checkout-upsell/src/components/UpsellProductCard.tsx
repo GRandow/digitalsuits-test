@@ -46,7 +46,8 @@ export function UpsellProductCard({ product }: UpsellProductCardProps) {
     <s-box border="base" borderRadius="base" padding="base">
       <s-stack gap="base">
         <s-grid gridTemplateColumns="auto 1fr auto" gap="base" alignItems="center">
-          <s-product-thumbnail src={product.image?.url} alt={product.image?.altText ?? product.title} />
+          {/* Decorative: the product title is right next to it. */}
+          <s-product-thumbnail src={product.image?.url} alt="" />
           <s-stack gap="small-500">
             <s-text type="strong">{product.title}</s-text>
             <s-text color="subdued">{price}</s-text>
