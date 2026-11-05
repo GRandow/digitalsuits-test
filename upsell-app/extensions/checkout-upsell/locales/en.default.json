@@ -1,6 +1,7 @@
 {
   "heading": "You may also like",
   "editor": {
-    "missingCollection": "Add the handle of the collection to recommend from in this block's settings."
+    "missingCollection": "Add the handle of the collection to recommend from in this block's settings.",
+    "collectionNotFound": "Couldn't load the collection \"{{collection}}\". Check the handle and that the collection is available on the Online Store."
   }
 }
