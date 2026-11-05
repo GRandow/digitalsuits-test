@@ -3,12 +3,22 @@
 #
 # client_id is filled in by `shopify app config link` (or the first
 # `shopify app dev`), which creates/links the app in your Partner organization.
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration
 
 client_id = ""
 name = "DigitalSuits Checkout Upsell"
 
+# Extension-only app: there is no web server, so Shopify's default app home is used.
+application_url = "https://shopify.dev/apps/default-app-home"
+embedded = true
+
 [access_scopes]
-# Extension-only app: the checkout UI extension reads products through the
-# Storefront API with the default unauthenticated scopes granted by api_access.
-# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+# The checkout UI extension reads products through the Storefront API with the
+# default unauthenticated scopes granted by `api_access`; no Admin API scopes are needed.
 scopes = ""
+
+[auth]
+redirect_urls = ["https://shopify.dev/apps/default-app-home/api/auth"]
+
+[webhooks]
+api_version = "2026-10"

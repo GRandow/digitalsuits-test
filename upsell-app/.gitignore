@@ -18,6 +18,7 @@ logs
 # extensions build output
 extensions/*/build
 extensions/*/dist
+extensions/*/manifest.json
 
 # lock files (npm is the package manager of this project; its lockfile is committed)
 yarn.lock
