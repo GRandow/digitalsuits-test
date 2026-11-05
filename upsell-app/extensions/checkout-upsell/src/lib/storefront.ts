@@ -14,9 +14,13 @@ export const COLLECTION_PRODUCTS_LIMIT = 50;
  *
  * Products that can only be sold with a subscription (`requiresSellingPlan`)
  * are excluded because the Add button adds a one-time purchase.
+ *
+ * `@inContext(country)` returns prices and availability for the buyer's
+ * market, so the cards match the currency of the checkout.
  */
 export const COLLECTION_PRODUCTS_QUERY = `#graphql
-  query UpsellCollectionProducts($id: ID, $handle: String, $first: Int!) {
+  query UpsellCollectionProducts($id: ID, $handle: String, $first: Int!, $country: CountryCode)
+  @inContext(country: $country) {
     collection(id: $id, handle: $handle) {
       id
       products(first: $first, sortKey: COLLECTION_DEFAULT) {
