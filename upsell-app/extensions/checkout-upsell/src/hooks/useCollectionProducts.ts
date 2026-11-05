@@ -17,26 +17,29 @@ export interface CollectionProductsState {
   products: UpsellProduct[];
 }
 
+/** A finished request, tagged with the setting value it was made for. */
+interface CollectionProductsResult extends CollectionProductsState {
+  setting: string;
+}
+
 const IDLE: CollectionProductsState = { status: 'idle', products: [] };
+const LOADING: CollectionProductsState = { status: 'loading', products: [] };
+const NOT_FOUND: CollectionProductsState = { status: 'not-found', products: [] };
 
 /**
  * Loads the purchasable products of the collection configured in the block
- * settings, in collection order. The request runs again only when the
- * setting changes; cart changes are handled by the caller.
+ * settings, in collection order. The request only runs again when the setting
+ * changes; filtering by cart contents is done by the caller on every render.
  */
 export function useCollectionProducts(collectionSetting: string | undefined): CollectionProductsState {
   const { query } = useApi<'purchase.checkout.block.render'>();
-  const [state, setState] = useState<CollectionProductsState>(IDLE);
+  const [result, setResult] = useState<CollectionProductsResult | null>(null);
 
   useEffect(() => {
     const reference = parseCollectionReference(collectionSetting);
-    if (!reference) {
-      setState(IDLE);
-      return;
-    }
+    if (!collectionSetting || !reference) return;
 
     let ignore = false;
-    setState({ status: 'loading', products: [] });
 
     query<CollectionProductsQueryData>(COLLECTION_PRODUCTS_QUERY, {
       variables: { ...reference, first: COLLECTION_PRODUCTS_LIMIT },
@@ -45,16 +48,16 @@ export function useCollectionProducts(collectionSetting: string | undefined): Co
         if (ignore) return;
         if (errors?.length) throw new Error(errors.map((error) => error.message).join('\n'));
 
-        setState(
+        setResult(
           data?.collection
-            ? { status: 'loaded', products: toUpsellProducts(data) }
-            : { status: 'not-found', products: [] },
+            ? { setting: collectionSetting, status: 'loaded', products: toUpsellProducts(data) }
+            : { setting: collectionSetting, status: 'not-found', products: [] },
         );
       })
       .catch((error: unknown) => {
         if (ignore) return;
         console.error('[checkout-upsell] Could not load the upsell collection.', error);
-        setState({ status: 'error', products: [] });
+        setResult({ setting: collectionSetting, status: 'error', products: [] });
       });
 
     return () => {
@@ -62,5 +65,10 @@ export function useCollectionProducts(collectionSetting: string | undefined): Co
     };
   }, [collectionSetting, query]);
 
-  return state;
+  if (!collectionSetting) return IDLE;
+  if (!parseCollectionReference(collectionSetting)) return NOT_FOUND;
+  // No answer yet for the current setting (first load, or the merchant just changed it).
+  if (result?.setting !== collectionSetting) return LOADING;
+
+  return result;
 }
