@@ -1,5 +1,33 @@
 {
   "sections": {
+    "promo_banner_homepage": {
+      "type": "promo-banner",
+      "settings": {
+        "content_position": "left",
+        "vertical_position": "middle",
+        "button_mode": "none"
+      }
+    },
+    "promo_banner_highlight": {
+      "type": "promo-banner",
+      "settings": {
+        "content_position": "right",
+        "vertical_position": "middle",
+        "button_mode": "link",
+        "button_label": "Shop Men",
+        "button_style": "link",
+        "button_link": "/collections/all"
+      }
+    },
+    "promo_banner_text_only": {
+      "type": "promo-banner",
+      "settings": {
+        "content_position": "center",
+        "vertical_position": "middle",
+        "show_product_image": false,
+        "button_mode": "none"
+      }
+    },
     "image_banner": {
       "type": "image-banner",
       "blocks": {
@@ -69,6 +97,9 @@
     }
   },
   "order": [
+    "promo_banner_homepage",
+    "promo_banner_highlight",
+    "promo_banner_text_only",
     "image_banner",
     "featured_collection"
   ]
