@@ -283,11 +283,17 @@
   border: 0;
 }
 
-/* Mobile: the card takes the full width and its height follows its content */
+/*
+ * Mobile: the Figma only covers desktop. The card takes the full width and its
+ * height follows its content; by default it is stacked below the image so the
+ * photo stays visible on narrow screens ("Card over image" keeps the overlay).
+ */
 
 @media screen and (max-width: 749px) {
   .promo-banner {
     --promo-banner-body-size: 16px;
+    --promo-banner-card-padding-block: 40px;
+    --promo-banner-card-padding-inline: 24px;
   }
 
   .promo-banner__heading {
@@ -301,5 +307,24 @@
   .promo-banner__card {
     width: 100%;
     min-height: 0;
+  }
+
+  .promo-banner__product-media {
+    width: min(50%, 240px);
+  }
+
+  .promo-banner--mobile-stack {
+    display: block;
+  }
+
+  .promo-banner--mobile-stack .promo-banner__media {
+    position: relative;
+    z-index: auto;
+    aspect-ratio: 4 / 3;
+  }
+
+  .promo-banner--mobile-stack .promo-banner__inner {
+    min-height: 0;
+    padding: 0;
   }
 }

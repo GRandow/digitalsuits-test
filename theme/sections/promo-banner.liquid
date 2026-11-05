@@ -52,7 +52,7 @@
 
 <section
   id="PromoBanner-{{ section.id }}"
-  class="promo-banner promo-banner--x-{{ section.settings.content_position }} promo-banner--y-{{ section.settings.vertical_position }}"
+  class="promo-banner promo-banner--x-{{ section.settings.content_position }} promo-banner--y-{{ section.settings.vertical_position }} promo-banner--mobile-{{ section.settings.mobile_layout }}"
   {% if section.settings.heading != blank %}
     aria-labelledby="PromoBannerHeading-{{ section.id }}"
   {% endif %}
@@ -254,6 +254,16 @@
       "step": 5,
       "unit": "%",
       "default": 90
+    },
+    {
+      "type": "select",
+      "id": "mobile_layout",
+      "label": "Mobile layout",
+      "options": [
+        { "value": "stack", "label": "Card below image" },
+        { "value": "overlay", "label": "Card over image" }
+      ],
+      "default": "stack"
     },
     {
       "type": "header",
