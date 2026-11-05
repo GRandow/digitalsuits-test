@@ -1,8 +1,16 @@
 import '@shopify/ui-extensions/preact';
 import { render } from 'preact';
-import { useExtensionEditor, useSettings, useTranslate } from '@shopify/ui-extensions/checkout/preact';
+import { useMemo } from 'preact/hooks';
+import {
+  useCartLines,
+  useExtensionEditor,
+  useSettings,
+  useTranslate,
+} from '@shopify/ui-extensions/checkout/preact';
 
+import { UpsellProductCard } from './components/UpsellProductCard';
 import { useCollectionProducts } from './hooks/useCollectionProducts';
+import { selectUpsellProducts } from './lib/select-upsell-products';
 
 export type UpsellSettings = {
   upsell_collection?: string;
@@ -15,11 +23,18 @@ export default async () => {
 
 function Extension() {
   const settings = useSettings<UpsellSettings>();
+  const cartLines = useCartLines();
   const editor = useExtensionEditor();
   const translate = useTranslate();
 
   const collectionSetting = settings.upsell_collection?.trim();
-  const { status } = useCollectionProducts(collectionSetting);
+  const { status, products } = useCollectionProducts(collectionSetting);
+
+  const cartProductIds = useMemo(
+    () => new Set(cartLines.map((line) => line.merchandise.product.id)),
+    [cartLines],
+  );
+  const upsellProducts = selectUpsellProducts(products, cartProductIds);
 
   // Buyers never see a misconfigured block; merchants get a hint in the checkout editor.
   if (!collectionSetting) {
@@ -32,5 +47,30 @@ function Extension() {
     ) : null;
   }
 
-  return null;
+  if (status === 'loading') return <UpsellSkeleton />;
+
+  // Every product of the collection is already in the cart (or none can be bought).
+  if (upsellProducts.length === 0) return null;
+
+  return (
+    <s-stack gap="base">
+      <s-heading>{settings.heading?.trim() || translate('heading')}</s-heading>
+      <s-stack gap="base" accessibilityRole="unordered-list">
+        {upsellProducts.map((product) => (
+          <s-stack key={product.id} accessibilityRole="list-item">
+            <UpsellProductCard product={product} />
+          </s-stack>
+        ))}
+      </s-stack>
+    </s-stack>
+  );
+}
+
+function UpsellSkeleton() {
+  return (
+    <s-stack gap="base">
+      <s-skeleton-paragraph />
+      <s-skeleton-paragraph />
+    </s-stack>
+  );
 }
