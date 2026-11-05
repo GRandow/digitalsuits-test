@@ -103,36 +103,40 @@
       {%- endif -%}
 
       {%- liquid
-        assign button_label = section.settings.button_label
         assign button_classes = 'promo-banner__button promo-banner__button--' | append: section.settings.button_style
       -%}
 
       {%- case section.settings.button_mode -%}
         {%- when 'link' -%}
-          {%- if button_label != blank -%}
-            <div class="promo-banner__action">
-              <a
-                {% if section.settings.button_link != blank %}
-                  href="{{ section.settings.button_link }}"
-                {% else %}
-                  role="link" aria-disabled="true"
-                {% endif %}
-                class="{{ button_classes }}"
-              >
-                {{- button_label | escape -}}
-              </a>
-            </div>
+          {%- comment -%}
+            A link without a URL is only rendered in the theme editor, so the merchant can see and style it.
+          {%- endcomment -%}
+          {%- if section.settings.button_label != blank -%}
+            {%- if section.settings.button_link != blank -%}
+              <div class="promo-banner__action">
+                <a href="{{ section.settings.button_link }}" class="{{ button_classes }}">
+                  {{- section.settings.button_label | escape -}}
+                </a>
+              </div>
+            {%- elsif request.design_mode -%}
+              <div class="promo-banner__action">
+                <a role="link" aria-disabled="true" class="{{ button_classes }}">
+                  {{- section.settings.button_label | escape -}}
+                </a>
+              </div>
+            {%- endif -%}
           {%- endif -%}
 
         {%- when 'add_to_cart' -%}
           {%- liquid
             assign variant = featured_product.selected_or_first_available_variant
-            if button_label == blank
-              assign button_label = 'sections.promo_banner.add_to_cart' | t
+            assign cart_button_label = section.settings.cart_button_label
+            if cart_button_label == blank
+              assign cart_button_label = 'sections.promo_banner.add_to_cart' | t
             endif
           -%}
-          <div class="promo-banner__action">
-            {%- if featured_product != blank -%}
+          {%- if featured_product != blank -%}
+            <div class="promo-banner__action">
               <promo-banner-cart-form
                 data-error-message="{{ 'sections.promo_banner.error' | t | escape }}"
                 data-loading-message="{{ 'sections.promo_banner.loading' | t | escape }}"
@@ -144,29 +148,36 @@
                     type="submit"
                     name="add"
                     class="{{ button_classes }}"
+                    aria-describedby="PromoBannerProductTitle-{{ section.id }}"
                     {% unless variant.available %}
                       disabled
                     {% endunless %}
                   >
                     <span class="promo-banner__button-label">
                       {%- if variant.available -%}
-                        {{- button_label | escape -}}
+                        {{- cart_button_label | escape -}}
                       {%- else -%}
                         {{- 'sections.promo_banner.sold_out' | t -}}
                       {%- endif -%}
                     </span>
                     <span class="promo-banner__spinner" aria-hidden="true"></span>
                   </button>
+                  <span id="PromoBannerProductTitle-{{ section.id }}" class="promo-banner__visually-hidden">
+                    {{- featured_product.title | escape -}}
+                  </span>
                   <span class="promo-banner__visually-hidden" role="status" data-promo-banner-status></span>
                   <p class="promo-banner__error" role="alert" data-promo-banner-error></p>
                 {%- endform -%}
               </promo-banner-cart-form>
-            {%- else -%}
+            </div>
+          {%- elsif request.design_mode -%}
+            {%- comment -%} Placeholder for the merchant until a product is selected; buyers see no button. {%- endcomment -%}
+            <div class="promo-banner__action">
               <button type="button" class="{{ button_classes }}" disabled>
                 {{- 'sections.promo_banner.unavailable' | t -}}
               </button>
-            {%- endif -%}
-          </div>
+            </div>
+          {%- endif -%}
       {%- endcase -%}
     </div>
   </div>
@@ -379,10 +390,16 @@
     {
       "type": "text",
       "id": "button_label",
-      "label": "Button label",
-      "info": "When adding to cart, an empty label shows \"Add to cart\".",
+      "label": "Link label",
       "default": "Shop Men",
-      "visible_if": "{{ section.settings.button_mode != 'none' }}"
+      "visible_if": "{{ section.settings.button_mode == 'link' }}"
+    },
+    {
+      "type": "text",
+      "id": "cart_button_label",
+      "label": "Add to cart label",
+      "info": "Leave empty to show \"Add to cart\".",
+      "visible_if": "{{ section.settings.button_mode == 'add_to_cart' }}"
     },
     {
       "type": "url",
