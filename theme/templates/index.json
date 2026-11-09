@@ -77,6 +77,40 @@
         "button_text_color": "#ffffff"
       }
     },
+    "promo_banner_PxxCjH": {
+      "type": "promo-banner",
+      "settings": {
+        "background_image": "shopify://shop_images/digitalsuits-test.png",
+        "image_subject_position": "left",
+        "background_color": "#f6f6f6",
+        "min_height": 700,
+        "margin_bottom": 48,
+        "content_position": "right",
+        "vertical_position": "middle",
+        "card_width": 47,
+        "card_height": 90,
+        "card_background": "#e4e0dd",
+        "heading_color": "#171717",
+        "text_color": "#5e5e5e",
+        "product": "",
+        "show_product_image": true,
+        "blend_product_image": true,
+        "heading": "Discover The Capri",
+        "heading_size": "medium",
+        "text": "<p>The quest for the perfect sneaker ends right here, with the Capri. It's your day-to-night go to. Keep them box-fresh or let them get scuffed up—you'll love them either way.</p>",
+        "text_size": 20,
+        "text_alignment": "center",
+        "heading_font": "cormorant_n4",
+        "body_font": "arial_n4",
+        "button_mode": "none",
+        "button_label": "Shop All",
+        "cart_button_label": "",
+        "button_link": "shopify://collections/upsell",
+        "button_style": "link",
+        "button_color": "#841719",
+        "button_text_color": "#ffffff"
+      }
+    },
     "featured_collection": {
       "type": "featured-collection",
       "settings": {
@@ -109,6 +143,7 @@
   "order": [
     "promo_banner_homepage",
     "promo_banner_6zzA8q",
+    "promo_banner_PxxCjH",
     "featured_collection"
   ]
 }
