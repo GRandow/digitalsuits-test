@@ -62,7 +62,7 @@
 
 <section
   id="PromoBanner-{{ section.id }}"
-  class="promo-banner promo-banner--x-{{ section.settings.content_position }} promo-banner--y-{{ section.settings.vertical_position }} promo-banner--mobile-{{ section.settings.mobile_layout }}{% if mirror_image %} promo-banner--mirror-image{% endif %}"
+  class="promo-banner promo-banner--x-{{ section.settings.content_position }} promo-banner--y-{{ section.settings.vertical_position }}{% if mirror_image %} promo-banner--mirror-image{% endif %}"
   {% if section.settings.heading != blank %}
     aria-labelledby="PromoBannerHeading-{{ section.id }}"
   {% endif %}
@@ -269,7 +269,7 @@
       "type": "select",
       "id": "vertical_position",
       "label": "Vertical position",
-      "info": "Visible when the card height is below 100%.",
+      "info": "Visible when the card height is below 100%. Also applies on mobile.",
       "options": [
         { "value": "top", "label": "Top" },
         { "value": "middle", "label": "Middle" },
@@ -297,16 +297,6 @@
       "step": 5,
       "unit": "%",
       "default": 90
-    },
-    {
-      "type": "select",
-      "id": "mobile_layout",
-      "label": "Mobile layout",
-      "options": [
-        { "value": "stack", "label": "Card below image" },
-        { "value": "overlay", "label": "Card over image" }
-      ],
-      "default": "stack"
     },
     {
       "type": "header",

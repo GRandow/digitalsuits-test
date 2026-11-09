@@ -39,7 +39,7 @@ A section written from scratch (markup, CSS and JavaScript; no Dawn section or s
 | Group | Settings |
 | --- | --- |
 | Background | Background image · Image subject side · Background color (fallback when there is no image) · Minimum height · Space below the section |
-| Card position | Horizontal position (left / right) · Vertical position (top / middle / bottom) · Card width · Card height · Mobile layout (card below image / card over image) |
+| Card position | Horizontal position (left / right) · Vertical position (top / middle / bottom) · Card width · Card height |
 | Card | Card background · Heading color · Text color · Product (optional) · Show product image · Blend product image with card background |
 | Text | Heading · Heading size · Text (rich text) · Text and button size · Text alignment · Heading font · Body font |
 | Button | Button behavior (hidden / link to a page / add product to cart) · Link label · Button link · Add to cart label · Button style (underlined link / solid) · Button color · Button text color |
@@ -69,7 +69,7 @@ All three are on the home page (`templates/index.json`); images and the product 
 - **Positioning:** the card sits in a single grid cell and is aligned with `justify-self` / `align-self`. The card height is a percentage of the banner, so the vertical position is visible whenever it is below 100%.
 - **Scoped styles:** values from the editor are CSS custom properties on `#PromoBanner-{{ section.id }}`, so several banners on one page never conflict and `section-promo-banner.css` stays static and cacheable. The script is only loaded when a banner uses add-to-cart mode.
 - **Fonts:** *Kessler Display* and *GT America* are not in Shopify's font library, so the defaults are the closest library fonts — **Cormorant** for the heading and **Arial** for the text (Arial is the Figma body font). Both are font pickers.
-- **Mobile:** the Figma is desktop only. Below 750px the card is full width with a content-driven height, stacked under the image by default; *Mobile layout → Card over image* keeps the overlay.
+- **Mobile:** the Figma is desktop only. Below 750px the card keeps floating over the photo, like in the design: full width with a 16px inset, content-driven height, smaller type, and the vertical position setting still applies.
 - **Product image:** *Blend product image* (`mix-blend-mode: multiply`) makes white product-photo backgrounds take the card color, like the shoe in the Figma.
 - **Translations:** every storefront string goes through `t:` and reuses keys Dawn already translates in its 31 locales (`products.product.add_to_cart`, `products.product.sold_out`, `products.product.unavailable`, `accessibility.loading`, `sections.cart.cart_error`), so the button is translated on non-English storefronts without duplicate keys. Schema labels are plain English, as is usual for a custom client section.
 - **Accessibility of the defaults:** the Figma grey `#666666` is 4.38:1 on the beige card, just under WCAG AA; the default text color is `#5E5E5E` (4.9:1), visually the same.

@@ -286,26 +286,27 @@
 }
 
 /*
- * Mobile: the Figma only covers desktop. The card takes the full width and its
- * height follows its content; by default it is stacked below the image so the
- * photo stays visible on narrow screens ("Card over image" keeps the overlay).
+ * Mobile: the Figma only covers desktop. The card keeps floating over the
+ * photo, full width with a 16px inset and a content-driven height, with
+ * smaller type and spacing so the photo stays visible around it.
  */
 
 @media screen and (max-width: 749px) {
   .promo-banner {
-    --promo-banner-body-size: calc(var(--promo-banner-text-size, 20px) * 0.8);
-    --promo-banner-card-padding-block: 40px;
-    --promo-banner-card-padding-inline: 24px;
+    --promo-banner-gutter: 16px;
+    --promo-banner-body-size: calc(var(--promo-banner-text-size, 20px) * 0.75);
+    --promo-banner-card-padding-block: 28px;
+    --promo-banner-card-padding-inline: 20px;
 
     margin-bottom: calc(var(--promo-banner-margin-bottom, 0px) * 0.75);
   }
 
   .promo-banner__heading {
-    font-size: calc(var(--promo-banner-heading-size) * 0.75);
+    font-size: calc(var(--promo-banner-heading-size) * 0.7);
   }
 
   .promo-banner__inner {
-    min-height: calc(var(--promo-banner-min-height) * 0.75);
+    min-height: calc(var(--promo-banner-min-height) * 0.7);
   }
 
   .promo-banner__card {
@@ -314,21 +315,16 @@
   }
 
   .promo-banner__product-media {
-    width: min(50%, 240px);
+    width: min(36%, 140px);
+    margin-bottom: 12px;
   }
 
-  .promo-banner--mobile-stack {
-    display: block;
+  .promo-banner__text {
+    margin-top: 10px;
+    line-height: 1.4;
   }
 
-  .promo-banner--mobile-stack .promo-banner__media {
-    position: relative;
-    z-index: auto;
-    aspect-ratio: 4 / 3;
-  }
-
-  .promo-banner--mobile-stack .promo-banner__inner {
-    min-height: 0;
-    padding: 0;
+  .promo-banner__action {
+    margin-top: 16px;
   }
 }
