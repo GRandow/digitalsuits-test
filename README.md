@@ -2,7 +2,7 @@
 
 | | |
 | --- | --- |
-| **Store** | `https://STORE-HANDLE.myshopify.com` — storefront password: `PASSWORD` <!-- TODO: fill in before sending --> |
+| **Store** | [gabriel-digitalsuits-test-p0b2fzsm.myshopify.com](https://gabriel-digitalsuits-test-p0b2fzsm.myshopify.com) — storefront password: `digitalsuits-test` |
 | **Theme** | Dawn 16.1.1 + the custom **Promo banner** section (`theme/`) |
 | **App** | Extension-only app with the **Checkout upsell** UI extension (`upsell-app/`) |
 
@@ -30,7 +30,7 @@ The first theme commit imports Dawn untouched, so `git log -- theme/` shows only
 
 ## Part 1 — Promo banner section
 
-![Promo banner — desktop variations](docs/screenshots/promo-banner-desktop.png)
+<!-- ![Promo banner — desktop variations](docs/screenshots/promo-banner-desktop.png) -->
 
 A section written from scratch (markup, CSS and JavaScript; no Dawn section or snippet is reused). Add it in the theme editor as **Promo banner**; the preset already contains the Figma copy, colors and typography.
 
@@ -74,14 +74,14 @@ All three are on the home page (`templates/index.json`); images and the product 
 - **Translations:** every storefront string goes through `t:` and reuses keys Dawn already translates in its 31 locales (`products.product.add_to_cart`, `products.product.sold_out`, `products.product.unavailable`, `accessibility.loading`, `sections.cart.cart_error`), so the button is translated on non-English storefronts without duplicate keys. Schema labels are plain English, as is usual for a custom client section.
 - **Accessibility of the defaults:** the Figma grey `#666666` is 4.38:1 on the beige card, just under WCAG AA; the default text color is `#5E5E5E` (4.9:1), visually the same.
 
-![Promo banner — mobile](docs/screenshots/promo-banner-mobile.png)
-![Promo banner — add to cart](docs/screenshots/promo-banner-add-to-cart.gif)
+<!-- ![Promo banner — mobile](docs/screenshots/promo-banner-mobile.png) -->
+<!-- ![Promo banner — add to cart](docs/screenshots/promo-banner-add-to-cart.gif) -->
 
 ### Run it
 
 ```bash
 cd theme
-shopify theme dev --store STORE-HANDLE      # local preview with hot reload
+shopify theme dev --store gabriel-digitalsuits-test-p0b2fzsm      # local preview with hot reload
 shopify theme check                         # lint
 shopify theme push --unpublished            # upload as a new theme, then publish it in the admin
 ```
@@ -90,7 +90,7 @@ shopify theme push --unpublished            # upload as a new theme, then publis
 
 ## Part 2 — Checkout upsell (Checkout UI extension)
 
-![Checkout upsell](docs/screenshots/checkout-upsell.gif)
+<!-- ![Checkout upsell](docs/screenshots/checkout-upsell.gif) -->
 
 A block extension on `purchase.checkout.block.render`, so the merchant can place it anywhere in the checkout editor. It shows two products from a chosen collection, each with an **Add** button.
 
@@ -117,7 +117,7 @@ A block extension on `purchase.checkout.block.render`, so the merchant can place
 - **Stack:** API `2026-10`, Preact + Polaris web components in TypeScript — the stack the current Shopify CLI generates for checkout UI extensions (React is only available up to API 2025-07). `shopify app build` reports ≈ 27 KB (≈ 9.5 KB compressed), below the 64 KB limit.
 - **Limit:** the first 50 products of the collection are read, plenty for an upsell collection (the API allows up to 250).
 
-![Checkout editor settings](docs/screenshots/checkout-editor-settings.png)
+<!-- ![Checkout editor settings](docs/screenshots/checkout-editor-settings.png) -->
 
 ### Run it
 
