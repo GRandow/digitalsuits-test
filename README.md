@@ -40,7 +40,7 @@ A section written from scratch (markup, CSS and JavaScript; no Dawn section or s
 | --- | --- |
 | Background | Background image · Image subject side · Background color (fallback when there is no image) · Minimum height · Space below the section |
 | Card position | Horizontal position (left / right) · Vertical position (top / middle / bottom) · Card width · Card height |
-| Card | Card background · Heading color · Text color · Product (optional) · Show product image · Blend product image with card background |
+| Card | Card background · Heading color · Text color · Product (optional) · Show product image · Blend product image with card background · Space between product image and heading |
 | Text | Heading · Heading size · Text (rich text) · Text and button size · Text alignment · Heading font · Body font |
 | Button | Button behavior (hidden / link to a page / add product to cart) · Link label · Button link · Add to cart label · Button style (underlined link / solid) · Button color · Button text color |
 

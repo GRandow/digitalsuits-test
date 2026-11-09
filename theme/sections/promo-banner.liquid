@@ -46,6 +46,7 @@
     --promo-banner-card-width: {{ section.settings.card_width }}%;
     --promo-banner-card-height: {{ section.settings.card_height | divided_by: 100.0 }};
     --promo-banner-card-background: {{ section.settings.card_background }};
+    --promo-banner-product-image-spacing: {{ section.settings.product_image_spacing }}px;
     --promo-banner-heading-color: {{ section.settings.heading_color }};
     --promo-banner-text-color: {{ section.settings.text_color }};
     --promo-banner-text-size: {{ section.settings.text_size }}px;
@@ -338,6 +339,17 @@
       "label": "Blend product image with card background",
       "info": "Makes white product photo backgrounds take the card color.",
       "default": true
+    },
+    {
+      "type": "range",
+      "id": "product_image_spacing",
+      "label": "Space between product image and heading",
+      "info": "Halved on mobile.",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 32
     },
     {
       "type": "header",
