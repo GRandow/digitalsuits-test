@@ -1,89 +1,98 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "promo_banner_homepage": {
       "type": "promo-banner",
       "settings": {
+        "background_image": "shopify://shop_images/digitalsuits-test.png",
+        "image_subject_position": "left",
+        "background_color": "#f6f6f6",
+        "min_height": 700,
+        "margin_bottom": 48,
         "content_position": "left",
         "vertical_position": "middle",
-        "button_mode": "none"
+        "card_width": 47,
+        "card_height": 90,
+        "card_background": "#e4e0dd",
+        "heading_color": "#171717",
+        "text_color": "#5e5e5e",
+        "product": "the-capri",
+        "show_product_image": true,
+        "blend_product_image": true,
+        "heading": "Discover The Capri",
+        "heading_size": "medium",
+        "text": "<p>The quest for the perfect sneaker ends right here, with the Capri. It's your day-to-night go to. Keep them box-fresh or let them get scuffed up—you'll love them either way.</p>",
+        "text_size": 20,
+        "text_alignment": "center",
+        "heading_font": "cormorant_n4",
+        "body_font": "arial_n4",
+        "button_mode": "add_to_cart",
+        "button_label": "Shop Men",
+        "cart_button_label": "",
+        "button_link": "shopify://collections/all",
+        "button_style": "link",
+        "button_color": "#841719",
+        "button_text_color": "#ffffff"
       }
     },
-    "promo_banner_highlight": {
+    "promo_banner_6zzA8q": {
       "type": "promo-banner",
       "settings": {
+        "background_image": "shopify://shop_images/digitalsuits-test.png",
+        "image_subject_position": "left",
+        "background_color": "#f6f6f6",
+        "min_height": 700,
+        "margin_bottom": 48,
         "content_position": "right",
         "vertical_position": "middle",
+        "card_width": 47,
+        "card_height": 90,
+        "card_background": "#e4e0dd",
+        "heading_color": "#171717",
+        "text_color": "#5e5e5e",
+        "product": "the-capri",
+        "show_product_image": true,
+        "blend_product_image": true,
+        "heading": "Discover The Capri",
+        "heading_size": "medium",
+        "text": "<p>The quest for the perfect sneaker ends right here, with the Capri. It's your day-to-night go to. Keep them box-fresh or let them get scuffed up—you'll love them either way.</p>",
+        "text_size": 20,
+        "text_alignment": "center",
+        "heading_font": "cormorant_n4",
+        "body_font": "arial_n4",
         "button_mode": "link",
-        "button_label": "Shop Men",
+        "button_label": "Shop All",
+        "cart_button_label": "",
+        "button_link": "shopify://collections/upsell",
         "button_style": "link",
-        "button_link": "/collections/all"
-      }
-    },
-    "promo_banner_text_only": {
-      "type": "promo-banner",
-      "settings": {
-        "content_position": "left",
-        "vertical_position": "middle",
-        "show_product_image": false,
-        "button_mode": "none"
-      }
-    },
-    "image_banner": {
-      "type": "image-banner",
-      "blocks": {
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "Browse our latest products",
-            "heading_size": "h0"
-          }
-        },
-        "button": {
-          "type": "buttons",
-          "settings": {
-            "button_label_1": "Shop all",
-            "button_link_1": "shopify://collections/all",
-            "button_style_secondary_1": true,
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_secondary_2": false
-          }
-        }
-      },
-      "block_order": [
-        "heading",
-        "button"
-      ],
-      "settings": {
-        "image_overlay_opacity": 40,
-        "image_height": "large",
-        "desktop_content_position": "bottom-center",
-        "show_text_box": false,
-        "image_behavior": "none",
-        "desktop_content_alignment": "center",
-        "color_scheme": "scheme-3",
-        "mobile_content_alignment": "center",
-        "stack_images_on_mobile": false,
-        "show_text_below": false
+        "button_color": "#841719",
+        "button_text_color": "#ffffff"
       }
     },
     "featured_collection": {
       "type": "featured-collection",
       "settings": {
+        "collection": "all",
+        "products_to_show": 8,
         "title": "Featured products",
         "heading_size": "h2",
         "description": "",
         "show_description": false,
         "description_style": "body",
-        "collection": "all",
-        "products_to_show": 8,
         "columns_desktop": 4,
-        "color_scheme": "scheme-1",
+        "enable_desktop_slider": false,
         "full_width": false,
         "show_view_all": true,
         "view_all_style": "solid",
-        "enable_desktop_slider": false,
-        "swipe_on_mobile": false,
+        "color_scheme": "scheme-1",
         "image_ratio": "adapt",
         "image_shape": "default",
         "show_secondary_image": true,
@@ -91,6 +100,7 @@
         "show_rating": false,
         "quick_add": "none",
         "columns_mobile": "2",
+        "swipe_on_mobile": false,
         "padding_top": 44,
         "padding_bottom": 36
       }
@@ -98,9 +108,7 @@
   },
   "order": [
     "promo_banner_homepage",
-    "promo_banner_highlight",
-    "promo_banner_text_only",
-    "image_banner",
+    "promo_banner_6zzA8q",
     "featured_collection"
   ]
 }
