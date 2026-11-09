@@ -14,6 +14,7 @@
 
   position: relative;
   display: grid;
+  margin-bottom: var(--promo-banner-margin-bottom, 0);
   overflow: hidden;
   isolation: isolate;
   background-color: var(--promo-banner-background);
@@ -295,6 +296,8 @@
     --promo-banner-body-size: calc(var(--promo-banner-text-size, 20px) * 0.8);
     --promo-banner-card-padding-block: 40px;
     --promo-banner-card-padding-inline: 24px;
+
+    margin-bottom: calc(var(--promo-banner-margin-bottom, 0px) * 0.75);
   }
 
   .promo-banner__heading {

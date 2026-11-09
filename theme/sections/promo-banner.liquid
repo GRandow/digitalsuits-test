@@ -41,6 +41,7 @@
 
   #PromoBanner-{{ section.id }} {
     --promo-banner-min-height: {{ section.settings.min_height }}px;
+    --promo-banner-margin-bottom: {{ section.settings.margin_bottom }}px;
     --promo-banner-background: {{ section.settings.background_color }};
     --promo-banner-card-width: {{ section.settings.card_width }}%;
     --promo-banner-card-height: {{ section.settings.card_height | divided_by: 100.0 }};
@@ -238,6 +239,17 @@
       "step": 20,
       "unit": "px",
       "default": 880
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Space below the section",
+      "info": "Scaled down on mobile.",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
     },
     {
       "type": "header",
