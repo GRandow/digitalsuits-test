@@ -22,7 +22,7 @@
     "promo_banner_text_only": {
       "type": "promo-banner",
       "settings": {
-        "content_position": "center",
+        "content_position": "left",
         "vertical_position": "middle",
         "show_product_image": false,
         "button_mode": "none"

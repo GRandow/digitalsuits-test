@@ -38,8 +38,8 @@ A section written from scratch (markup, CSS and JavaScript; no Dawn section or s
 
 | Group | Settings |
 | --- | --- |
-| Background | Background image · Background color (fallback when there is no image) · Minimum height |
-| Card position | Horizontal position (left / center / right) · Vertical position (top / middle / bottom) · Card width · Card height · Mobile layout (card below image / card over image) |
+| Background | Background image · Image subject side · Background color (fallback when there is no image) · Minimum height |
+| Card position | Horizontal position (left / right) · Vertical position (top / middle / bottom) · Card width · Card height · Mobile layout (card below image / card over image) |
 | Card | Card background · Heading color · Text color · Product (optional) · Show product image · Blend product image with card background |
 | Text | Heading · Heading size · Text (rich text) · Text and button size · Text alignment · Heading font · Body font |
 | Button | Button behavior (hidden / link to a page / add product to cart) · Link label · Button link · Add to cart label · Button style (underlined link / solid) · Button color · Button text color |
@@ -65,6 +65,7 @@ All three are on the home page (`templates/index.json`); images and the product 
 
 ### Decisions
 
+- **Image follows the card:** in the Figma the photo is mirrored between the two layouts, so the subject (the shoe) is always on the side opposite the card. *Image subject side* tells the section where the subject is in the uploaded photo; when the card is placed on that same side, the image is mirrored with CSS (`transform: scaleX(-1)`), so a single upload works for both layouts.
 - **Positioning:** the card sits in a single grid cell and is aligned with `justify-self` / `align-self`. The card height is a percentage of the banner, so the vertical position is visible whenever it is below 100%.
 - **Scoped styles:** values from the editor are CSS custom properties on `#PromoBanner-{{ section.id }}`, so several banners on one page never conflict and `section-promo-banner.css` stays static and cacheable. The script is only loaded when a banner uses add-to-cart mode.
 - **Fonts:** *Kessler Display* and *GT America* are not in Shopify's font library, so the defaults are the closest library fonts — **Cormorant** for the heading and **Arial** for the text (Arial is the Figma body font). Both are font pickers.

@@ -34,6 +34,11 @@
   object-fit: cover;
 }
 
+/* Keeps the image subject on the side opposite the card (see "Image subject side") */
+.promo-banner--mirror-image .promo-banner__image {
+  transform: scaleX(-1);
+}
+
 /* Card positioning: a single grid cell, the card is aligned inside it */
 
 .promo-banner__inner {
@@ -44,10 +49,6 @@
 
 .promo-banner--x-left .promo-banner__card {
   justify-self: start;
-}
-
-.promo-banner--x-center .promo-banner__card {
-  justify-self: center;
 }
 
 .promo-banner--x-right .promo-banner__card {
