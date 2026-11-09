@@ -121,7 +121,7 @@ A block extension on `purchase.checkout.block.render`, so the merchant can place
 
 ### Run it
 
-Requires Node.js 22.12+ and a development store with Shopify Plus features (checkout UI extensions in the information/shipping/payment steps).
+Requires Node.js 22.13+ and a development store with Shopify Plus features (checkout UI extensions in the information/shipping/payment steps).
 
 ```bash
 cd upsell-app
