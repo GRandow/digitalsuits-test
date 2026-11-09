@@ -1,5 +1,6 @@
 {
   "heading": "You may also like",
+  "notInCart": "Not in your order yet. Add them with one click.",
   "add": "Add",
   "addProduct": "Add {{product}} to your order",
   "addError": "This product couldn't be added to your order. Please try again.",

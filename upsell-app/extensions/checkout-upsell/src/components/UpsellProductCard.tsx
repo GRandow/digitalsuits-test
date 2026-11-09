@@ -43,7 +43,7 @@ export function UpsellProductCard({ product }: UpsellProductCardProps) {
   }
 
   return (
-    <s-box border="base" borderRadius="base" padding="base">
+    <s-box background="base" border="base" borderRadius="base" padding="base">
       <s-stack gap="base">
         <s-grid gridTemplateColumns="auto 1fr auto" gap="base" alignItems="center">
           {/* Decorative: the product title is right next to it. */}

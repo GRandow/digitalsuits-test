@@ -59,17 +59,23 @@ function Extension() {
     return editor ? <s-banner tone="info">{translate('editor.nothingToShow')}</s-banner> : null;
   }
 
+  // A tinted panel with its own heading keeps the offers visually apart from the cart lines.
   return (
-    <s-stack gap="base">
-      <s-heading>{settings.heading?.trim() || translate('heading')}</s-heading>
-      <s-stack gap="base" accessibilityRole="unordered-list">
-        {upsellProducts.map((product) => (
-          <s-stack key={product.id} accessibilityRole="list-item">
-            <UpsellProductCard product={product} />
-          </s-stack>
-        ))}
+    <s-box background="subdued" borderRadius="base" padding="base">
+      <s-stack gap="base">
+        <s-stack gap="small-500">
+          <s-heading>{settings.heading?.trim() || translate('heading')}</s-heading>
+          <s-text color="subdued">{translate('notInCart')}</s-text>
+        </s-stack>
+        <s-stack gap="small-200" accessibilityRole="unordered-list">
+          {upsellProducts.map((product) => (
+            <s-stack key={product.id} accessibilityRole="list-item">
+              <UpsellProductCard product={product} />
+            </s-stack>
+          ))}
+        </s-stack>
       </s-stack>
-    </s-stack>
+    </s-box>
   );
 }
 
